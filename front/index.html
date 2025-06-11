@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Controle Financeiro</title>
+</head>
+<body>
+  <h1>Cadastro de Usuário</h1>
+  <input type="text" id="cad_name" placeholder="Nome">
+  <input type="email" id="cad_email" placeholder="Email">
+  <input type="password" id="cad_password" placeholder="Senha">
+  <button onclick="registerUser()">Cadastrar</button>
+
+  <hr>
+
+  <h1>Login</h1>
+  <input type="email" id="email" placeholder="Email">
+  <input type="password" id="password" placeholder="Senha">
+  <button onclick="login()">Entrar</button>
+
+  <h2>Token JWT:</h2>
+  <pre id="tokenDisplay"></pre>
+
+  <h1>Buscar Usuários</h1>
+  <button onclick="getUsers()">Listar</button>
+  <pre id="usersDisplay"></pre>
+
+  <script src="app.js"></script>
+</body>
+</html>

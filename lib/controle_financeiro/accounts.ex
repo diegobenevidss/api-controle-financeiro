@@ -105,9 +105,10 @@ defmodule ControleFinanceiro.Accounts do
   def authenticate_user(email, password) do
     user = get_user_by_email(email)
 
-    case Bcrypt.check_pass(user, password) do
-      {:ok, user} -> {:ok, user}
-      _ -> {:error, :unauthorized}
+    if user && Bcrypt.verify_pass(password, user.password_hash) do
+      {:ok, user}
+    else
+      {:error, :unauthorized}
     end
   end
 
