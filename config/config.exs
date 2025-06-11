@@ -39,6 +39,10 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
+config :controle_financeiro, ControleFinanceiro.Guardian,
+  issuer: "controle_financeiro",
+  secret_key: "TCS1J1v6u8d2LGRHDUo5DzNl8iueMsPnNOwTfG1td8Xtsqn3Kiazcg5haxUhmUaP"
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{config_env()}.exs"

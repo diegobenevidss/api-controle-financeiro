@@ -11,6 +11,7 @@ defmodule ControleFinanceiroWeb.Router do
     resources "/users", UserController, except: [:new, :edit]
     resources "/transactions", TransactionController, except: [:new, :edit]
     resources "/tags", TagController, except: [:new, :edit]
+    post "/login", AuthController, :login
 
   end
 

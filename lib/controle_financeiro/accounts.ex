@@ -101,4 +101,17 @@ defmodule ControleFinanceiro.Accounts do
   def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
   end
+
+  def authenticate_user(email, password) do
+    user = get_user_by_email(email)
+
+    case Bcrypt.check_pass(user, password) do
+      {:ok, user} -> {:ok, user}
+      _ -> {:error, :unauthorized}
+    end
+  end
+
+  def get_user_by_email(email) do
+    Repo.get_by(ControleFinanceiro.Accounts.User, email: email)
+  end
 end

@@ -11,6 +11,8 @@ defmodule ControleFinanceiro.Accounts.User do
     field :password, :string, virtual: true
     field :password_hash, :string
 
+    has_many :transactions, ControleFinanceiro.Finance.Transaction
+
     timestamps()
   end
 
