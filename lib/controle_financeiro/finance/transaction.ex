@@ -3,23 +3,20 @@ defmodule ControleFinanceiro.Finance.Transaction do
   import Ecto.Changeset
 
   @primary_key {:id, :binary_id, autogenerate: true}
-  @foreign_key_type :binary_id
+  @derive {Jason.Encoder, only: [:id, :description, :amount, :type, :date, :user_id]}
   schema "transactions" do
-    field :data, :naive_datetime
-    field :descricao, :string
-    field :valor, :decimal
-    field :tipo, :string
+    field :description, :string
+    field :amount, :decimal
+    field :type, :string
+    field :date, :utc_datetime
+    belongs_to :user, ControleFinanceiro.Accounts.User, type: :binary_id
 
-    belongs_to :user, ControleFinanceiro.Accounts.User
-    many_to_many :tags, ControleFinanceiro.Finance.Tag, join_through: "transactions_tags"
-
-    timestamps(type: :utc_datetime)
+    timestamps()
   end
 
-  @doc false
   def changeset(transaction, attrs) do
     transaction
-    |> cast(attrs, [:descricao, :valor, :tipo, :data])
-    |> validate_required([:descricao, :valor, :tipo, :data])
+    |> cast(attrs, [:description, :amount, :type, :date, :user_id])
+    |> validate_required([:description, :amount, :type, :date, :user_id])
   end
 end

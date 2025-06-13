@@ -22,6 +22,7 @@ defmodule ControleFinanceiro.Accounts.User do
     |> cast(attrs, [:name, :email, :password])
     |> validate_required([:name, :email, :password])
     |> put_password_hash()
+    |> unique_constraint(:email)
   end
 
   defp put_password_hash(changeset) do

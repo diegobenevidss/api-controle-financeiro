@@ -1,31 +1,67 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
   <meta charset="UTF-8" />
   <title>Controle Financeiro</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
-  <h1>Cadastro de Usuário</h1>
-  <input type="text" id="cad_name" placeholder="Nome">
-  <input type="email" id="cad_email" placeholder="Email">
-  <input type="password" id="cad_password" placeholder="Senha">
-  <button onclick="registerUser()">Cadastrar</button>
 
-  <hr>
+  <section class="box">
+    <h1>Cadastro de Usuário</h1>
+    <input type="text" id="cad_name" placeholder="Nome" />
+    <input type="email" id="cad_email" placeholder="Email" />
+    <input type="password" id="cad_password" placeholder="Senha" />
+    <button onclick="registerUser()">Cadastrar</button>
+  </section>
 
-  <h1>Login</h1>
-  <input type="email" id="email" placeholder="Email">
-  <input type="password" id="password" placeholder="Senha">
-  <button onclick="login()">Entrar</button>
+  <section class="box">
+    <h1>Login</h1>
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Senha" />
+    <button onclick="login()">Entrar</button>
 
-  <h2>Token JWT:</h2>
-  <pre id="tokenDisplay"></pre>
+    <h2>Token JWT:</h2>
+    <pre id="tokenDisplay"></pre>
+  </section>
 
-  <h1>Buscar Usuários</h1>
-  <button onclick="getUsers()">Listar</button>
-  <pre id="usersDisplay"></pre>
+  <section class="box">
+    <h1>Usuários</h1>
+    <button onclick="getUsers()">Listar Usuários</button>
+    <pre id="usersDisplay"></pre>
+  </section>
+
+  <section class="box">
+    <h1>Cadastro de Transação</h1>
+    <input type="text" id="trans_description" placeholder="Descrição" />
+    <input type="number" id="trans_amount" placeholder="Valor (ex: 99.90)" step="0.01" />
+    <select id="trans_type">
+      <option value="RECEITA">RECEITA</option>
+      <option value="DESPESA">DESPESA</option>
+    </select>
+    <input type="datetime-local" id="trans_date">
+    <input type="text" id="trans_user_id" placeholder="ID do Usuário" />
+    <button onclick="createTransaction()">Cadastrar Transação</button>
+
+    <h2>Buscar Transações</h2>
+    <button onclick="getTransactions()">Listar Transações</button>
+    <pre id="transactionsDisplay"></pre>
+  </section>
+
+  <section class="box">
+    <h1>Cadastro de Tag</h1>
+    <input type="text" id="tag_name" placeholder="Nome da Categoria" />
+    <input type="text" id="tag_user_id" placeholder="ID do Usuário" />
+    <button onclick="createTag()">Cadastrar Tag</button>
+
+    <h2>Buscar Tags</h2>
+    <button onclick="getTags()">Listar Tags</button>
+    <pre id="tagsDisplay"></pre>
+  </section>
 
   <script src="app.js"></script>
 </body>
+
 </html>

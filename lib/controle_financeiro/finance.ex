@@ -7,47 +7,22 @@ defmodule ControleFinanceiro.Finance do
   alias ControleFinanceiro.Repo
 
   alias ControleFinanceiro.Finance.Transaction
+  alias ControleFinanceiro.Finance.Tag
+
+  # Transações
 
   @doc """
-  Returns the list of transactions.
-
-  ## Examples
-
-      iex> list_transactions()
-      [%Transaction{}, ...]
-
+  Retorna todas as transações.
   """
-  def list_transactions do
-    Repo.all(Transaction)
-  end
+  def list_transactions, do: Repo.all(Transaction)
 
   @doc """
-  Gets a single transaction.
-
-  Raises `Ecto.NoResultsError` if the Transaction does not exist.
-
-  ## Examples
-
-      iex> get_transaction!(123)
-      %Transaction{}
-
-      iex> get_transaction!(456)
-      ** (Ecto.NoResultsError)
-
+  Busca uma transação por ID. Levanta erro se não encontrar.
   """
   def get_transaction!(id), do: Repo.get!(Transaction, id)
 
   @doc """
-  Creates a transaction.
-
-  ## Examples
-
-      iex> create_transaction(%{field: value})
-      {:ok, %Transaction{}}
-
-      iex> create_transaction(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
+  Cria uma nova transação.
   """
   def create_transaction(attrs \\ %{}) do
     %Transaction{}
@@ -56,16 +31,7 @@ defmodule ControleFinanceiro.Finance do
   end
 
   @doc """
-  Updates a transaction.
-
-  ## Examples
-
-      iex> update_transaction(transaction, %{field: new_value})
-      {:ok, %Transaction{}}
-
-      iex> update_transaction(transaction, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
+  Atualiza uma transação existente.
   """
   def update_transaction(%Transaction{} = transaction, attrs) do
     transaction
@@ -74,76 +40,31 @@ defmodule ControleFinanceiro.Finance do
   end
 
   @doc """
-  Deletes a transaction.
-
-  ## Examples
-
-      iex> delete_transaction(transaction)
-      {:ok, %Transaction{}}
-
-      iex> delete_transaction(transaction)
-      {:error, %Ecto.Changeset{}}
-
+  Exclui uma transação.
   """
-  def delete_transaction(%Transaction{} = transaction) do
-    Repo.delete(transaction)
-  end
+  def delete_transaction(%Transaction{} = transaction), do: Repo.delete(transaction)
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for tracking transaction changes.
-
-  ## Examples
-
-      iex> change_transaction(transaction)
-      %Ecto.Changeset{data: %Transaction{}}
-
+  Retorna um changeset para a transação.
   """
   def change_transaction(%Transaction{} = transaction, attrs \\ %{}) do
     Transaction.changeset(transaction, attrs)
   end
 
-  alias ControleFinanceiro.Finance.Tag
+  # Tags
 
   @doc """
-  Returns the list of tags.
-
-  ## Examples
-
-      iex> list_tags()
-      [%Tag{}, ...]
-
+  Retorna todas as tags.
   """
-  def list_tags do
-    Repo.all(Tag)
-  end
+  def list_tags, do: Repo.all(Tag)
 
   @doc """
-  Gets a single tag.
-
-  Raises `Ecto.NoResultsError` if the Tag does not exist.
-
-  ## Examples
-
-      iex> get_tag!(123)
-      %Tag{}
-
-      iex> get_tag!(456)
-      ** (Ecto.NoResultsError)
-
+  Busca uma tag por ID. Levanta erro se não encontrar.
   """
   def get_tag!(id), do: Repo.get!(Tag, id)
 
   @doc """
-  Creates a tag.
-
-  ## Examples
-
-      iex> create_tag(%{field: value})
-      {:ok, %Tag{}}
-
-      iex> create_tag(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
+  Cria uma nova tag.
   """
   def create_tag(attrs \\ %{}) do
     %Tag{}
@@ -152,16 +73,7 @@ defmodule ControleFinanceiro.Finance do
   end
 
   @doc """
-  Updates a tag.
-
-  ## Examples
-
-      iex> update_tag(tag, %{field: new_value})
-      {:ok, %Tag{}}
-
-      iex> update_tag(tag, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
+  Atualiza uma tag existente.
   """
   def update_tag(%Tag{} = tag, attrs) do
     tag
@@ -170,29 +82,12 @@ defmodule ControleFinanceiro.Finance do
   end
 
   @doc """
-  Deletes a tag.
-
-  ## Examples
-
-      iex> delete_tag(tag)
-      {:ok, %Tag{}}
-
-      iex> delete_tag(tag)
-      {:error, %Ecto.Changeset{}}
-
+  Exclui uma tag.
   """
-  def delete_tag(%Tag{} = tag) do
-    Repo.delete(tag)
-  end
+  def delete_tag(%Tag{} = tag), do: Repo.delete(tag)
 
   @doc """
-  Returns an `%Ecto.Changeset{}` for tracking tag changes.
-
-  ## Examples
-
-      iex> change_tag(tag)
-      %Ecto.Changeset{data: %Tag{}}
-
+  Retorna um changeset para a tag.
   """
   def change_tag(%Tag{} = tag, attrs \\ %{}) do
     Tag.changeset(tag, attrs)

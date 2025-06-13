@@ -4,13 +4,13 @@ defmodule ControleFinanceiro.Repo.Migrations.CreateTransactions do
   def change do
     create table(:transactions, primary_key: false) do
       add :id, :binary_id, primary_key: true
-      add :descricao, :string
-      add :valor, :decimal
-      add :tipo, :string
-      add :data, :naive_datetime
-      add :user_id, references(:users, on_delete: :nothing, type: :binary_id)
+      add :description, :string
+      add :amount, :decimal
+      add :type, :string
+      add :date, :utc_datetime
+      add :user_id, references(:users, type: :binary_id, on_delete: :delete_all)
 
-      timestamps(type: :utc_datetime)
+      timestamps()
     end
 
     create index(:transactions, [:user_id])

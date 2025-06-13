@@ -4,18 +4,22 @@ defmodule ControleFinanceiroWeb.TagController do
   alias ControleFinanceiro.Finance
   alias ControleFinanceiro.Finance.Tag
 
-  action_fallback ControleFinanceiroWeb.FallbackController
-
   def index(conn, _params) do
     tags = Finance.list_tags()
     json(conn, tags)
   end
 
   def create(conn, %{"tag" => tag_params}) do
-    with {:ok, %Tag{} = tag} <- Finance.create_tag(tag_params) do
-      conn
-      |> put_status(:created)
-      |> json(tag)
+    case Finance.create_tag(tag_params) do
+      {:ok, %Tag{} = tag} ->
+        conn
+        |> put_status(:created)
+        |> json(tag)
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        conn
+        |> put_status(:unprocessable_entity)
+        |> json(%{errors: changeset_errors(changeset)})
     end
   end
 
@@ -27,16 +31,37 @@ defmodule ControleFinanceiroWeb.TagController do
   def update(conn, %{"id" => id, "tag" => tag_params}) do
     tag = Finance.get_tag!(id)
 
-    with {:ok, %Tag{} = tag} <- Finance.update_tag(tag, tag_params) do
-      json(conn, tag)
+    case Finance.update_tag(tag, tag_params) do
+      {:ok, %Tag{} = tag} ->
+        json(conn, tag)
+
+      {:error, %Ecto.Changeset{} = changeset} ->
+        conn
+        |> put_status(:unprocessable_entity)
+        |> json(%{errors: changeset_errors(changeset)})
     end
   end
 
   def delete(conn, %{"id" => id}) do
     tag = Finance.get_tag!(id)
 
-    with {:ok, %Tag{}} <- Finance.delete_tag(tag) do
-      send_resp(conn, :no_content, "")
+    case Finance.delete_tag(tag) do
+      {:ok, _tag} ->
+        send_resp(conn, :no_content, "")
+
+      {:error, reason} ->
+        conn
+        |> put_status(:unprocessable_entity)
+        |> json(%{error: reason})
     end
+  end
+
+  # Reutilizável para qualquer changeset
+  defp changeset_errors(changeset) do
+    Ecto.Changeset.traverse_errors(changeset, fn {msg, opts} ->
+      Enum.reduce(opts, msg, fn {key, value}, acc ->
+        String.replace(acc, "%{#{key}}", to_string(value))
+      end)
+    end)
   end
 end
